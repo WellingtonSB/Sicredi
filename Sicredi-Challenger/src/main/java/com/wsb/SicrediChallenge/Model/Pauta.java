@@ -45,11 +45,22 @@ public class Pauta {
 	
 	
 	
+
+
 	public Pauta(@Size(max = 10) @NotEmpty(message = "Titulo deve ser preenchido") String titulo,
-			@Size(max = 20) @NotEmpty(message = "O texto deve ser preenchido") String texto) {
+			@Size(max = 20) @NotEmpty(message = "O texto deve ser preenchido") String texto, LocalTime inicioVotacao,
+			LocalTime fimVotacao, boolean pautaAtiva, int totalVotos, int votosFavor, int votosContra,
+			boolean aprovada) {
 		super();
 		this.titulo = titulo;
 		this.texto = texto;
+		this.inicioVotacao = inicioVotacao;
+		this.fimVotacao = fimVotacao;
+		this.pautaAtiva = pautaAtiva;
+		this.totalVotos = totalVotos;
+		this.votosFavor = votosFavor;
+		this.votosContra = votosContra;
+		this.aprovada = aprovada;
 	}
 
 	public long getId() {

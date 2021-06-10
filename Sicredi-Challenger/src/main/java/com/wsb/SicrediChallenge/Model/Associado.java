@@ -19,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Check;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -45,6 +46,7 @@ public class Associado {
 	@NotEmpty(message="O voto deve ser preenchido")
 	private boolean voto;
 	
+	
 	private boolean jaVotou = false;
 	
 	
@@ -60,15 +62,15 @@ public class Associado {
 	private List<Pauta> pauta = new ArrayList<>();
 
 	
-
 	public Associado(@Size(max = 30) @NotEmpty(message = "O Nome deve ser preenchido") String nome,
-			@CPF @NotEmpty(message = "O CPF deve ser preenchido") String cpf) {
+			@CPF @NotEmpty(message = "O CPF deve ser preenchido") String cpf,
+			@NotEmpty(message = "O voto deve ser preenchido") boolean voto, boolean jaVotou) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
-
+		this.voto = voto;
+		this.jaVotou = jaVotou;
 	}
-
 
 	public long getId() {
 		return id;
