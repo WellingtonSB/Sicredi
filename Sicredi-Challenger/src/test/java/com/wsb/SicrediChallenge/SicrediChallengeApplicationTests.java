@@ -1,13 +1,14 @@
 package com.wsb.SicrediChallenge;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 @SpringBootTest
-class SicrediChallengeApplicationTests {
+public class SicrediChallengeApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 }

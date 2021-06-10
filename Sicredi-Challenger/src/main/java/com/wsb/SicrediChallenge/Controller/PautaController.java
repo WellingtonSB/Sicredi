@@ -37,7 +37,7 @@ public class PautaController {
 	public ResponseEntity<List<Pauta>> GetAll(Pauta pauta) {
 		return ResponseEntity.ok(repository.findAll());
 	}
-
+	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Pauta> post(@RequestBody Pauta pauta) {
 	
