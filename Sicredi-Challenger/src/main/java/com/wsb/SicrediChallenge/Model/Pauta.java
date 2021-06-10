@@ -26,15 +26,13 @@ public class Pauta {
 	private String texto;
 
 	private LocalTime inicioVotacao;
-
-	private LocalTime duracaoVoto;
-	
+	private LocalTime fimVotacao;
 	private boolean pautaAtiva;
 	private int totalVotos;
 	private int votosFavor;
 	private int votosContra;
 
-	private boolean estado = false;// vetada ou aprovada
+	private boolean aprovada = false; //vetada ou aprovada
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "pauta_associado", joinColumns = @JoinColumn(name = "pauta_id"), inverseJoinColumns = @JoinColumn(name = "associado_id"))
@@ -73,12 +71,12 @@ public class Pauta {
 		this.inicioVotacao = inicioVotacao;
 	}
 
-	public LocalTime getDuracaoVoto() {
-		return duracaoVoto;
+	public LocalTime getFimVotacao() {
+		return fimVotacao;
 	}
 
-	public void setDuracaoVoto(LocalTime duracaoVoto) {
-		this.duracaoVoto = duracaoVoto;
+	public void setFimVotacao(LocalTime fimVotacao) {
+		this.fimVotacao = fimVotacao;
 	}
 
 	public boolean isPautaAtiva() {
@@ -113,12 +111,12 @@ public class Pauta {
 		this.votosContra = votosContra;
 	}
 
-	public boolean isEstado() {
-		return estado;
+	public boolean isAprovada() {
+		return aprovada;
 	}
 
-	public void setEstado(boolean estado) {
-		this.estado = estado;
+	public void setAprovada(boolean aprovada) {
+		this.aprovada = aprovada;
 	}
 
 	public List<Associado> getAssociado() {

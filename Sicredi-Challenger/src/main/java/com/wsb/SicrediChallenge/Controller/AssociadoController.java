@@ -40,11 +40,4 @@ public class AssociadoController {
 	return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrarAssociado(associado));
 	}
 
-	
-	
-/*	@PutMapping
-	public ResponseEntity<Associado>put(@RequestBody Associado associado, Pauta pauta){
-		return ResponseEntity.ok(service.votarNaPauta(pauta, associado));
-	}*/
-
 }

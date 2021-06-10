@@ -32,14 +32,14 @@ public class AssociadoService {
 		}
 		LocalTime tempoVotacao = LocalTime.now();
 		pauta.setInicioVotacao(tempoVotacao);
-		LocalTime a = LocalTime.now();
-		pauta.setDuracaoVoto(a);
+		pauta.setFimVotacao(tempoVotacao);
 
-		LocalTime cronometro = LocalTime.of(pauta.getDuracaoVoto().getHour(), pauta.getDuracaoVoto().getMinute(),
-				pauta.getDuracaoVoto().getSecond()).plusMinutes(1);
-		pauta.setDuracaoVoto(cronometro);
-
+		LocalTime cronometro = LocalTime.of(pauta.getFimVotacao().getHour(), pauta.getFimVotacao().getMinute(),
+				pauta.getFimVotacao().getSecond()).plusMinutes(1);
+		
+		pauta.setFimVotacao(cronometro);
 		pauta.setPautaAtiva(true);
+		
 		return pautaRepository.save(pauta);
 	}
 
@@ -47,15 +47,17 @@ public class AssociadoService {
 		Optional<Pauta> pautaExiste = pautaRepository.findById(idPauta);
 		Optional<Associado> associadoExiste = associadoRepository.findById(idAssociado);
 		this.verificarEstadoPauta(pautaExiste.get());
-
-		// se a pauta/usuario existirem e o associado não tiver votado ainda entra na
-		// condição
-
+		this.verificarCpf(associadoExiste.get(), pautaExiste.get());
+		
+		
+		/* se a pauta/usuario existirem e o associado não tiver votado ainda entra na condição*/
 		if (pautaExiste.isPresent() && associadoExiste.isPresent() && associadoExiste.get().isJaVotou() == false
 				&& pautaExiste.get().isPautaAtiva() == true) {
 
 			// adiciona o usuario na pauta existente;
 			pautaExiste.get().getAssociado().add(associadoExiste.get());
+			
+			/*verifica o voto do associado*/
 			if (associadoExiste.get().isVoto() == true) {
 				pautaExiste.get().setVotosFavor(pautaExiste.get().getVotosFavor() + 1);
 				associadoExiste.get().setJaVotou(true);
@@ -65,13 +67,12 @@ public class AssociadoService {
 				associadoExiste.get().setJaVotou(true);
 			}
 
-			// se o numero de votos a favor for maior que o numero de votos contrarios a
-			// pauta será aprovada
+			/*verifica se a pauta foi ou nao aprovada*/
 			if (pautaExiste.get().getVotosFavor() > pautaExiste.get().getVotosContra()) {
-				pautaExiste.get().setEstado(true);
+				pautaExiste.get().setAprovada(true);
 
 			} else {
-				pautaExiste.get().setEstado(false);
+				pautaExiste.get().setAprovada(false);
 			}
 
 			pautaExiste.get().setTotalVotos(pautaExiste.get().getTotalVotos() + 1);
@@ -82,12 +83,23 @@ public class AssociadoService {
 		return null;
 	}
 
+	/*verifica se o tempo da votacao foi ultrapassado(1 minuto apos a criacao da pauta)*/
 	public void verificarEstadoPauta(Pauta pauta) {
 		LocalTime tempoAtual = LocalTime.now();
-		if (pauta.getDuracaoVoto().isBefore(tempoAtual)) {
+		if (pauta.getFimVotacao().isBefore(tempoAtual)) {
 			System.out.println(pauta.isPautaAtiva());
 			pauta.setPautaAtiva(false);
+			
 			pautaRepository.save(pauta);
+		}
+	}
+	
+	/*Apos a finalizacao da votacao da pauta em questão o usuario pode voltar a votar*/
+	public void verificarCpf(Associado associado,Pauta pauta) {
+		//Melhorar essa condicao;
+		if(pauta.isPautaAtiva()==false) {
+			associado.setJaVotou(false);
+			associadoRepository.save(associado);
 		}
 	}
 

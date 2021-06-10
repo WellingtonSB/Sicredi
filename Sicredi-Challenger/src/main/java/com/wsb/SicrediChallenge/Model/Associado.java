@@ -37,7 +37,7 @@ public class Associado {
 	private String nome;
 
 	@NotBlank
-	
+	@CPF
 	private String cpf;
 
 	private boolean jaVotou = false;
@@ -51,7 +51,7 @@ public class Associado {
 	// relacionamento N1N1 com pauta
 	
 	@ManyToMany(mappedBy="associado", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JsonIgnoreProperties({"titulo","texto","periodoVotacao","pautaAtiva","totalVotos","votosFavor","votosContra","estado","associado"})
+	@JsonIgnoreProperties({"titulo","texto","inicioVotacao",""})
 	private List<Pauta> pauta = new ArrayList<>();
 
 	public long getId() {
