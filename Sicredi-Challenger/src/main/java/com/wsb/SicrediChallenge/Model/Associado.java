@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -23,6 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_associado")
@@ -32,17 +34,20 @@ public class Associado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotBlank
 	@Size(max = 30)
+	@NotEmpty(message="O Nome deve ser preenchido")
 	private String nome;
-
-	@NotBlank
+	
 	@CPF
+	@NotEmpty(message="O CPF deve ser preenchido")
 	private String cpf;
 
-	private boolean jaVotou = false;
-
+	@NotEmpty(message="O voto deve ser preenchido")
 	private boolean voto;
+	
+	private boolean jaVotou = false;
+	
+	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
@@ -53,6 +58,17 @@ public class Associado {
 	@ManyToMany(mappedBy="associado", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JsonIgnoreProperties({"titulo","texto","inicioVotacao","fimVotacao","pautaAtiva","totalVotos","votosFavor","votosContra","aprovada","associado"})
 	private List<Pauta> pauta = new ArrayList<>();
+
+	
+
+	public Associado(@Size(max = 30) @NotEmpty(message = "O Nome deve ser preenchido") String nome,
+			@CPF @NotEmpty(message = "O CPF deve ser preenchido") String cpf) {
+		super();
+		this.nome = nome;
+		this.cpf = cpf;
+
+	}
+
 
 	public long getId() {
 		return id;

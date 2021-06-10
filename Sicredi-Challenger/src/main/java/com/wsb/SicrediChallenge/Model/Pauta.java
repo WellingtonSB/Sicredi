@@ -5,6 +5,7 @@ import java.time.*;
 import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.*;
@@ -17,12 +18,14 @@ public class Pauta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotBlank
-	@Size(max = 40)
+	
+	@Size(max = 10)
+	@NotEmpty(message="Titulo deve ser preenchido")
 	private String titulo;
 
-	@NotBlank
-	@Size(max = 240)
+	
+	@Size(max = 20)
+	@NotEmpty(message="O texto deve ser preenchido")
 	private String texto;
 
 	private LocalTime inicioVotacao;
@@ -38,6 +41,16 @@ public class Pauta {
 	@JoinTable(name = "pauta_associado", joinColumns = @JoinColumn(name = "pauta_id"), inverseJoinColumns = @JoinColumn(name = "associado_id"))
 	@JsonIgnoreProperties({ "nome", "cpf", "jaVotou", "voto", "dataVoto", "pauta" })
 	private List<Associado> associado = new ArrayList<>();
+
+	
+	
+	
+	public Pauta(@Size(max = 10) @NotEmpty(message = "Titulo deve ser preenchido") String titulo,
+			@Size(max = 20) @NotEmpty(message = "O texto deve ser preenchido") String texto) {
+		super();
+		this.titulo = titulo;
+		this.texto = texto;
+	}
 
 	public long getId() {
 		return id;
