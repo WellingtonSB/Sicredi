@@ -43,7 +43,6 @@ public class Associado {
 	@NotEmpty(message="O CPF deve ser preenchido")
 	private String cpf;
 
-	@NotEmpty(message="O voto deve ser preenchido")
 	private boolean voto;
 	
 	
@@ -62,7 +61,7 @@ public class Associado {
 	private List<Pauta> pauta = new ArrayList<>();
 
 	
-	public Associado(@Size(max = 30) @NotEmpty(message = "O Nome deve ser preenchido") String nome,
+	/*public Associado(@Size(max = 30) @NotEmpty(message = "O Nome deve ser preenchido") String nome,
 			@CPF @NotEmpty(message = "O CPF deve ser preenchido") String cpf,
 			@NotEmpty(message = "O voto deve ser preenchido") boolean voto, boolean jaVotou) {
 		super();
@@ -70,7 +69,7 @@ public class Associado {
 		this.cpf = cpf;
 		this.voto = voto;
 		this.jaVotou = jaVotou;
-	}
+	}*/
 
 	public long getId() {
 		return id;

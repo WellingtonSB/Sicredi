@@ -46,6 +46,7 @@ public class AssociadoService {
 	public Pauta votarNaPauta(long idPauta, long idAssociado) {
 		Optional<Pauta> pautaExiste = pautaRepository.findById(idPauta);
 		Optional<Associado> associadoExiste = associadoRepository.findById(idAssociado);
+		
 		this.verificarEstadoPauta(pautaExiste.get());
 		this.verificarCpf(associadoExiste.get(), pautaExiste.get());
 		
@@ -76,7 +77,6 @@ public class AssociadoService {
 			}
 
 			pautaExiste.get().setTotalVotos(pautaExiste.get().getTotalVotos() + 1);
-
 			return pautaRepository.save(pautaExiste.get());
 		}
 
@@ -87,9 +87,7 @@ public class AssociadoService {
 	public void verificarEstadoPauta(Pauta pauta) {
 		LocalTime tempoAtual = LocalTime.now();
 		if (pauta.getFimVotacao().isBefore(tempoAtual)) {
-			System.out.println(pauta.isPautaAtiva());
 			pauta.setPautaAtiva(false);
-			
 			pautaRepository.save(pauta);
 		}
 	}

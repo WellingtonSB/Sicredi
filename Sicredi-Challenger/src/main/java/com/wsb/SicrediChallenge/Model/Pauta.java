@@ -19,12 +19,11 @@ public class Pauta {
 	private long id;
 
 	
-	@Size(max = 10)
+	@Size(max = 30)
 	@NotEmpty(message="Titulo deve ser preenchido")
 	private String titulo;
-
-	
-	@Size(max = 20)
+ 
+	@Size(max = 240)
 	@NotEmpty(message="O texto deve ser preenchido")
 	private String texto;
 
@@ -42,12 +41,7 @@ public class Pauta {
 	@JsonIgnoreProperties({ "nome", "cpf", "jaVotou", "voto", "dataVoto", "pauta" })
 	private List<Associado> associado = new ArrayList<>();
 
-	
-	
-	
-
-
-	public Pauta(@Size(max = 10) @NotEmpty(message = "Titulo deve ser preenchido") String titulo,
+	/*public Pauta(@Size(max = 10) @NotEmpty(message = "Titulo deve ser preenchido") String titulo,
 			@Size(max = 20) @NotEmpty(message = "O texto deve ser preenchido") String texto, LocalTime inicioVotacao,
 			LocalTime fimVotacao, boolean pautaAtiva, int totalVotos, int votosFavor, int votosContra,
 			boolean aprovada) {
@@ -61,7 +55,7 @@ public class Pauta {
 		this.votosFavor = votosFavor;
 		this.votosContra = votosContra;
 		this.aprovada = aprovada;
-	}
+	}*/
 
 	public long getId() {
 		return id;
