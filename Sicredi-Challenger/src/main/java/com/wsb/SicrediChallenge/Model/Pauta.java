@@ -1,0 +1,133 @@
+package com.wsb.SicrediChallenge.Model;
+
+import java.sql.Time;
+import java.time.*;
+import java.util.*;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.*;
+
+@Entity
+@Table(name = "tb_pauta")
+public class Pauta {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	@NotBlank
+	@Size(max = 40)
+	private String titulo;
+
+	@NotBlank
+	@Size(max = 240)
+	private String texto;
+
+	private LocalTime inicioVotacao;
+
+	private LocalTime duracaoVoto;
+	
+	private boolean pautaAtiva;
+	private int totalVotos;
+	private int votosFavor;
+	private int votosContra;
+
+	private boolean estado = false;// vetada ou aprovada
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "pauta_associado", joinColumns = @JoinColumn(name = "pauta_id"), inverseJoinColumns = @JoinColumn(name = "associado_id"))
+	@JsonIgnoreProperties({ "nome", "cpf", "jaVotou", "voto", "dataVoto", "pauta" })
+	private List<Associado> associado = new ArrayList<>();
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+
+	public LocalTime getInicioVotacao() {
+		return inicioVotacao;
+	}
+
+	public void setInicioVotacao(LocalTime inicioVotacao) {
+		this.inicioVotacao = inicioVotacao;
+	}
+
+	public LocalTime getDuracaoVoto() {
+		return duracaoVoto;
+	}
+
+	public void setDuracaoVoto(LocalTime duracaoVoto) {
+		this.duracaoVoto = duracaoVoto;
+	}
+
+	public boolean isPautaAtiva() {
+		return pautaAtiva;
+	}
+
+	public void setPautaAtiva(boolean pautaAtiva) {
+		this.pautaAtiva = pautaAtiva;
+	}
+
+	public int getTotalVotos() {
+		return totalVotos;
+	}
+
+	public void setTotalVotos(int totalVotos) {
+		this.totalVotos = totalVotos;
+	}
+
+	public int getVotosFavor() {
+		return votosFavor;
+	}
+
+	public void setVotosFavor(int votosFavor) {
+		this.votosFavor = votosFavor;
+	}
+
+	public int getVotosContra() {
+		return votosContra;
+	}
+
+	public void setVotosContra(int votosContra) {
+		this.votosContra = votosContra;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public List<Associado> getAssociado() {
+		return associado;
+	}
+
+	public void setAssociado(List<Associado> associado) {
+		this.associado = associado;
+	}
+
+	
+}
