@@ -49,7 +49,8 @@ identificado por um id único e pode votar apenas uma vez por pauta);
   
 # Futures
   
-  -Melhorias com relacao a regra de negocio da aplicação.
-  -Criação do front para efetuar o deploy da aplicação, plataforma há ser utilizada será o heroku ou EC2.
+  - Melhorias com relacao a regra de negocio da aplicação.
+  
+  - Criação do front para efetuar o deploy da aplicação, plataforma há ser utilizada será o heroku ou EC2.
 
   
