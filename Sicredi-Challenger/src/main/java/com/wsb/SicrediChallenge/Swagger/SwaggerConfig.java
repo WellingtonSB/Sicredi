@@ -16,8 +16,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 	@Bean
 	public Docket docket() {
-		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("package com.wsb.SicrediChallenge.Controller"))
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
 	}
 
@@ -27,7 +28,6 @@ public class SwaggerConfig {
 	}
 
 	private Contact contact() {
-		return new Contact("Wellington Bezerra", "https://github.com/WellingtonSB",
-				"Full-Stack Developer Jr ");
+		return new Contact("Wellington Bezerra", "https://github.com/WellingtonSB", "Full-Stack Developer Jr ");
 	}
 }

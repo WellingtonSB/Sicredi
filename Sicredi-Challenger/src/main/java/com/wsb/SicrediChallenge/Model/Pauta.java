@@ -1,10 +1,9 @@
 package com.wsb.SicrediChallenge.Model;
 
-import java.sql.Time;
 import java.time.*;
 import java.util.*;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -18,44 +17,28 @@ public class Pauta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	
 	@Size(max = 30)
-	@NotEmpty(message="Titulo deve ser preenchido")
+	@Column(name = "titulo", nullable = false, unique = true)
+	@NotEmpty(message = "Titulo deve ser preenchido")
 	private String titulo;
- 
+
 	@Size(max = 240)
-	@NotEmpty(message="O texto deve ser preenchido")
+	@Column(name = "texto", nullable = false, unique = true)
+	@NotEmpty(message = "O texto deve ser preenchido")
 	private String texto;
 
 	private LocalTime inicioVotacao;
 	private LocalTime fimVotacao;
-	private boolean pautaAtiva;
 	private int totalVotos;
 	private int votosFavor;
 	private int votosContra;
-
-	private boolean aprovada = false; //vetada ou aprovada
+	private boolean pautaAtiva;
+	private boolean aprovada = false;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "pauta_associado", joinColumns = @JoinColumn(name = "pauta_id"), inverseJoinColumns = @JoinColumn(name = "associado_id"))
 	@JsonIgnoreProperties({ "nome", "cpf", "jaVotou", "voto", "dataVoto", "pauta" })
 	private List<Associado> associado = new ArrayList<>();
-
-	/*public Pauta(@Size(max = 10) @NotEmpty(message = "Titulo deve ser preenchido") String titulo,
-			@Size(max = 20) @NotEmpty(message = "O texto deve ser preenchido") String texto, LocalTime inicioVotacao,
-			LocalTime fimVotacao, boolean pautaAtiva, int totalVotos, int votosFavor, int votosContra,
-			boolean aprovada) {
-		super();
-		this.titulo = titulo;
-		this.texto = texto;
-		this.inicioVotacao = inicioVotacao;
-		this.fimVotacao = fimVotacao;
-		this.pautaAtiva = pautaAtiva;
-		this.totalVotos = totalVotos;
-		this.votosFavor = votosFavor;
-		this.votosContra = votosContra;
-		this.aprovada = aprovada;
-	}*/
 
 	public long getId() {
 		return id;
@@ -145,5 +128,4 @@ public class Pauta {
 		this.associado = associado;
 	}
 
-	
 }
