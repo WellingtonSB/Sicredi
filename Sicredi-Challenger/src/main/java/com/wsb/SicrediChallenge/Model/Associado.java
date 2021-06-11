@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "tb_associado")
 public class Associado {
@@ -35,41 +38,29 @@ public class Associado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Size(max = 30)
-	@NotEmpty(message="O Nome deve ser preenchido")
+	@Size(min = 3, message = "O nome deve ter no minimo 3 letras")
+	@NotEmpty(message = "O Nome deve ser preenchido")
 	private String nome;
-	
-	@CPF
-	@NotEmpty(message="O CPF deve ser preenchido")
+
+	@Column(name = "cpf", nullable = false, unique = true)
+	@NotBlank(message = "CPF obrigatório")
+	@CPF(message = "CPF inválido")
 	private String cpf;
 
 	private boolean voto;
-	
-	
+
 	private boolean jaVotou = false;
-	
-	
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date dataVoto = new java.sql.Date(System.currentTimeMillis());
-	
-	// relacionamento N1N1 com pauta
-	
-	@ManyToMany(mappedBy="associado", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JsonIgnoreProperties({"titulo","texto","inicioVotacao","fimVotacao","pautaAtiva","totalVotos","votosFavor","votosContra","aprovada","associado"})
-	private List<Pauta> pauta = new ArrayList<>();
 
-	
-	/*public Associado(@Size(max = 30) @NotEmpty(message = "O Nome deve ser preenchido") String nome,
-			@CPF @NotEmpty(message = "O CPF deve ser preenchido") String cpf,
-			@NotEmpty(message = "O voto deve ser preenchido") boolean voto, boolean jaVotou) {
-		super();
-		this.nome = nome;
-		this.cpf = cpf;
-		this.voto = voto;
-		this.jaVotou = jaVotou;
-	}*/
+	// relacionamento N1N1 com pauta
+
+	@ManyToMany(mappedBy = "associado", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties({ "titulo", "texto", "inicioVotacao", "fimVotacao", "pautaAtiva", "totalVotos", "votosFavor",
+			"votosContra", "aprovada", "associado" })
+	private List<Pauta> pauta = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -127,5 +118,4 @@ public class Associado {
 		this.pauta = pauta;
 	}
 
-	
 }
