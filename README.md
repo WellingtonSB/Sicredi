@@ -3,7 +3,7 @@
   
 #  Objetivo
 
-Gerenciar sessões de votação com os requintes parametros:
+Gerenciar sessões de votação com os sequintes parametros:
 
 - Cadastrar uma nova pauta;
 
