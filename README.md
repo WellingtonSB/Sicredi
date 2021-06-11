@@ -25,6 +25,7 @@ identificado por um id único e pode votar apenas uma vez por pauta);
     - Postman →(Testarmos nossas requisições)
     - jUnit →(Realizão de testes unitarios)
 
+
  # Padrão de Projeto
  
 -  Utilizei o padrão MVC (Model, View e Controller), não foi utilizado o "view" pois não criei até o momento o Front-End
