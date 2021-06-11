@@ -37,7 +37,7 @@ identificado por um id único e pode votar apenas uma vez por pauta);
    Cadastro do administrador:
    ![1](https://i.imgur.com/vWGD1fS.png)
    
-    Logar administrador:
+    Login administrador:
    ![2](https://i.imgur.com/P6q8Ffg.png)
    
     Cadastro pauta:
@@ -46,5 +46,8 @@ identificado por um id único e pode votar apenas uma vez por pauta);
     Votar na pauta:
    ![4](https://i.imgur.com/1FWKYcK.png)
   
+# Futures
   
+  -Criação do front para efetuar o deploy da aplicação, plataforma há ser utilizada será o heroku.
+
   
