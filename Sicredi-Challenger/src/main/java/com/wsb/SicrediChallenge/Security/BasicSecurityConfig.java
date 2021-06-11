@@ -29,6 +29,7 @@ public class BasicSecurityConfig  extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+		.antMatchers("/**").permitAll() 
 		.antMatchers("/adminstrador/logar").permitAll()
 		.antMatchers("/adminstrador/cadastrar/adm").permitAll()
 		.antMatchers("/associado/pauta_associado/pauta/{idPauta}/associado/{idAssociado}").permitAll()
