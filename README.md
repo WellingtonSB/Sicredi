@@ -33,6 +33,7 @@ identificado por um id único e pode votar apenas uma vez por pauta);
 # Funcionamento da API
 
 - O administrador possui o controle sobre as pautas. O mesmo pode cadastrar,buscar ou deletar pautas ou associados.
+- Cada associado tem direito a apenas 1 voto por pauta,como as pautas possuem a duração de apenas 1 minuto setei para que o associado possa votar em uma nova pauta assim que a anterior estiver finalizada. 
  
    Cadastro do administrador:
    ![1](https://i.imgur.com/vWGD1fS.png)
@@ -48,6 +49,7 @@ identificado por um id único e pode votar apenas uma vez por pauta);
   
 # Futures
   
-  -Criação do front para efetuar o deploy da aplicação, plataforma há ser utilizada será o heroku.
+  -Melhorias com relacao a regra de negocio da aplicação.
+  -Criação do front para efetuar o deploy da aplicação, plataforma há ser utilizada será o heroku ou EC2.
 
   
