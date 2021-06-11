@@ -80,17 +80,7 @@ public class AdminstradorController {
 		}
 	}
 
-	@PostMapping("/cadastrar/associado")
-	@ApiOperation(value = "Cadastra um associado")
-	public ResponseEntity<Associado> post(@RequestBody Associado associado) {
-		Optional<Associado> user = assocaciadoService.cadastrarAssociado(associado);
-		try {
-			return ResponseEntity.ok(user.get());
-		}catch(Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
-		
-	}
+
 	
 	
 	@DeleteMapping("/deletar/pauta/{id}")

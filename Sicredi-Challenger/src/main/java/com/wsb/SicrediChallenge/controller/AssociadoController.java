@@ -31,7 +31,17 @@ public class AssociadoController {
 	@Autowired
 	private AssociadoService service;
 
-	
+	@PostMapping("/votar")
+	@ApiOperation(value = "Cadastra um associado")
+	public ResponseEntity<Associado> post(@RequestBody Associado associado) {
+		Optional<Associado> user = service.cadastrarAssociado(associado);
+		try {
+			return ResponseEntity.ok(user.get());
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+	}
 	
 	@PutMapping("/pauta_associado/pauta/{idPauta}/associado/{idAssociado}")
 	@ApiOperation(value = "Associa o voto do associado a pauta")
